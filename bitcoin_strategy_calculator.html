@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin Wealth Strategy Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e8f8f5;
+            border-left: 5px solid #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitcoin Strategy: Maximize Your Wealth Using Smart Leverage</h1>
+    <p>
+        <strong>Initial Question:</strong><br>
+        How can I maximize my Bitcoin holdings using price cycles, credit leverage, and Swiss tax benefits?
+    </p>
+
+    <h2>Strategy Summary</h2>
+    <ul>
+        <li>Hold BTC through the peak instead of selling</li>
+        <li>Use BTC as collateral to borrow cash (e.g. at $250,000/BTC)</li>
+        <li>Buy more BTC at lower prices using the borrowed funds (e.g. $90,000/BTC)</li>
+        <li>Hold all BTC until the next cycle peak (e.g. $1 million/BTC)</li>
+        <li>Repay loan, enjoy magnified profits – potentially tax-free in Switzerland</li>
+    </ul>
+
+    <h2>BTC Portfolio Growth Calculator</h2>
+    <div class="calculator">
+        <label for="btc">Initial BTC Holdings:</label>
+        <input type="number" id="btc" value="3" step="0.1"><br>
+
+        <label for="top_price">Top BTC Price (e.g. $250,000):</label>
+        <input type="number" id="top_price" value="250000"><br>
+
+        <label for="ltv">Loan-to-Value Ratio (%):</label>
+        <input type="number" id="ltv" value="40"><br>
+
+        <label for="bottom_price">Bottom BTC Price (buy-in):</label>
+        <input type="number" id="bottom_price" value="90000"><br>
+
+        <label for="future_price">Future BTC Price (e.g. 2029):</label>
+        <input type="number" id="future_price" value="1000000"><br>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            let btc = parseFloat(document.getElementById('btc').value);
+            let top_price = parseFloat(document.getElementById('top_price').value);
+            let ltv = parseFloat(document.getElementById('ltv').value) / 100;
+            let bottom_price = parseFloat(document.getElementById('bottom_price').value);
+            let future_price = parseFloat(document.getElementById('future_price').value);
+
+            let initial_value = btc * top_price;
+            let loan_amount = initial_value * ltv;
+            let additional_btc = loan_amount / bottom_price;
+            let total_btc = btc + additional_btc;
+            let future_value = total_btc * future_price;
+            let net_value = future_value - loan_amount;
+
+            document.getElementById('results').innerHTML = `
+                <strong>Loan Amount:</strong> $${loan_amount.toFixed(2)}<br>
+                <strong>Additional BTC Bought:</strong> ${additional_btc.toFixed(4)} BTC<br>
+                <strong>Total BTC at Future Peak:</strong> ${total_btc.toFixed(4)} BTC<br>
+                <strong>Portfolio Value at $${future_price}:</strong> $${future_value.toLocaleString()}<br>
+                <strong>Net Value (after repaying loan):</strong> $${net_value.toLocaleString()}
+            `;
+        }
+    </script>
+</body>
+</html>
